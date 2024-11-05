@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los mejores juegos del año</title>
+    <link rel="stylesheet" href="videojuegos.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#games">Gotys</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#otros-juegos">Otros Juegos Interesantes</a></li>
+            </ul>
+        </nav>
+        <div class="encabezado-img">
+            <h1>Los mejores juegos de los años</h1>
+        </div>
+    </header>
+
+    <section id="home">
+        <div class="container">
+            <div class="texto">
+                <h2>Bienvenido a nuestra página de videojuegos</h2>
+                <p>Descubre los mejores juegos del año y los ganadores de los premios GOTY. Cada año, los videojuegos más destacados son reconocidos por su excelencia y contribución a la industria.</p>
+                <p>Como en cualquier arte, los premios GOTY son el pináculo del reconocimiento. The Game Awards celebra lo mejor de los videojuegos, y nosotros te traemos la historia detrás de estos premios y los juegos que los han definido.</p>
+            </div>
+            <div class="imagen">
+                <img src="imagenes_juegos/imagen_inicio.jpg" alt="Imagen de inicio">
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="games">
+            <h2>Premios GOTY</h2>
+            <section id="filtro">
+                <h2>Filtrar por Año</h2>
+                <div class="filtro-container">
+                    <select id="filtroAnio">
+                        <option value="todos">Todos los años</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
+                        <option value="2004">2004</option>
+                        <option value="2003">2003</option>
+                    </select>
+                    <button id="botonFiltro" type="button">Filtrar</button>
+                </div>
+            </section>
+            <div id="juegosContainer">
+            </div>
+        </section>
+
+        <section id="otros-juegos">
+            <h2>Otros Juegos Interesantes</h2>
+            <section id="buscador">
+                <h2>Buscar por Nombre</h2>
+                <div class="buscador-container">
+                    <input type="text" id="buscadorNombre" placeholder="Buscar juego...">
+                    <button id="botonBuscar" type="button">Buscar</button>
+                </div>
+            </section>
+            <div id="otrosJuegosContainer">
+            </div>
+        </section>
+    </main>
+
+    <section id="contacto">
+        <h2 style="text-align: center;">Contacto</h2>
+        <form id="formularioContacto" action="procesar_contacto.php" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+            
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <script>
+    // Validación del formulario de contacto
+    document.getElementById('formularioContacto').addEventListener('submit', function(event) {
+        const nombre = document.getElementById('nombre').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mensaje = document.getElementById('mensaje').value.trim();
+    
+        if (nombre === '' || email === '' || mensaje === '') {
+            alert('Por favor, completa todos los campos.');
+            event.preventDefault(); // Evita el envío si hay campos vacíos
+        } else if (!validateEmail(email)) {
+            alert('Por favor, introduce un email válido.');
+            event.preventDefault();
+        }
+    });
+    
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    document.getElementById('botonFiltro').addEventListener('click', async function() {
+        const anioSeleccionado = document.getElementById('filtroAnio').value;
+        try {
+            const response = await fetch(`api_videojuegos.php?anio=${anioSeleccionado}`);
+            const juegos = await response.json();
+            const section = document.getElementById('juegosContainer');
+            section.innerHTML = ''; // Limpiar el contenido inicial
+
+            juegos.forEach(juego => {
+                const juegoDiv = document.createElement('div');
+                juegoDiv.classList.add('game');
+                juegoDiv.dataset.lanzamiento = juego.lanzamiento;
+
+                juegoDiv.innerHTML = `
+                    <img src="imagenes_juegos/${juego.imagen_url}" alt="${juego.titulo}">
+                    <h2>${juego.titulo}</h2>
+                    <p>${juego.descripcion}</p>
+                    <p><strong>Plataformas:</strong> ${juego.plataformas}</p>
+                    <p><strong>Lanzamiento:</strong> ${juego.lanzamiento}</p>
+                `;
+
+                section.appendChild(juegoDiv);
+            });
+        } catch (error) {
+            console.error('Error al cargar los juegos:', error);
+        }
+    });
+
+    document.getElementById('botonBuscar').addEventListener('click', function() {
+        const nombreBuscado = document.getElementById('buscadorNombre').value.trim();
+        buscarJuegosPorNombre(nombreBuscado);
+    });
+
+    async function buscarJuegosPorNombre(nombre) {
+        try {
+            const response = await fetch(`api_videojuegos.php?nombre=${nombre}`);
+            const juegos = await response.json();
+            const section = document.getElementById('otrosJuegosContainer');
+            section.innerHTML = ''; // Limpiar el contenido inicial
+
+            juegos.forEach(juego => {
+                const juegoDiv = document.createElement('div');
+                juegoDiv.classList.add('game');
+                juegoDiv.dataset.lanzamiento = juego.lanzamiento;
+
+                juegoDiv.innerHTML = `
+                    <img src="imagenes_juegos/${juego.imagen_url}" alt="${juego.titulo}">
+                    <h2>${juego.titulo}</h2>
+                    <p>${juego.descripcion}</p>
+                    <p><strong>Plataformas:</strong> ${juego.plataformas}</p>
+                    <p><strong>Lanzamiento:</strong> ${juego.lanzamiento}</p>
+                `;
+
+                section.appendChild(juegoDiv);
+            });
+        } catch (error) {
+            console.error('Error al buscar juegos:', error);
+        }
+    }
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Mejores Videojuegos. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="videojuegos.js"></script>
+</body>
+</html>

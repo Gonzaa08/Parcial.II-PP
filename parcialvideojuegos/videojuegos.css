@@ -1,0 +1,292 @@
+/* Estilo General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    padding-bottom: 2.5em;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-image: url(imagenes_juegos/Header_1.jpg);
+    background-size: cover;
+    background-position: center;
+    padding: 1em 0;
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Estilos de Navegación */
+nav {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1em 0;
+    position: relative;
+    z-index: 1;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+nav li {
+    margin: 0 1em;
+}
+
+nav a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 20px; 
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+/* Estilos Principales */
+main {
+    padding: 2em;
+    text-align: center;
+    flex: 1; /* Hace que el main ocupe el espacio disponible */
+}
+
+#home {
+    padding: 50px 0;
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 1200px; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 20px; 
+}
+
+.texto {
+    flex: 1; 
+    text-align: left; 
+    padding-right: 20px; 
+}
+
+.encabezado-img {
+    background-image: url(imagenes_juegos/Header_1.jpg);
+    height: 300px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Estilo para los Juegos */
+.game {
+    background-color: white;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+.game img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.game:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo del Pie de Página */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    width: 100%;
+    margin-top: 2em; /* Espacio para que no quede encima del contenido */
+}
+
+/* Sección de Contacto */
+#contacto {
+    padding: 50px 0;
+    background-color: #ffffff;
+}
+
+#contacto form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#contacto form label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#contacto form input[type="text"],
+#contacto form input[type="email"],
+#contacto form textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+#contacto h2 {
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+#contacto form textarea {
+    height: 150px;
+}
+
+#contacto form button[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#contacto form button[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav li {
+        margin: 0.5em 0;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .texto {
+        padding: 0;
+        text-align: center;
+    }
+
+    .game {
+        margin: 1em auto;
+        max-width: 90%;
+    }
+
+    #contacto form {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    nav a {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .encabezado-img {
+        height: 200px;
+    }
+
+    .game img {
+        max-height: 150px;
+    }
+
+    #contacto form {
+        padding: 15px;
+    }
+}
+
+/* Estilo para la sección de filtro */
+#filtro {
+    text-align: center; /* Centrar el texto del título */
+    margin: 20px 0; /* Espacio arriba y abajo de la sección */
+}
+
+.filtro-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre el filtro y la sección de juegos */
+}
+
+.filtro-container h3 {
+    margin-right: 10px;
+}
+
+.filtro-container select, 
+.filtro-container button {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+/* Asegurarse de que el filtro esté sobre los juegos */
+#games .filtro-container,
+#otros-juegos .filtro-container {
+    margin-top: 10px; /* Aumenta el espacio entre el título y el filtro */
+}
+
+main, .game, #games, #otros-juegos {
+    position: relative;
+    z-index: 1; /* Para que el filtro quede encima */
+}
+
+section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Estilos para Select y Botones de Filtro */
+select, #botonFiltro, #botonFiltroOtros {
+    padding: 10px;
+    border: 1px solid violet; /* Color de borde violeta */
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+select:focus, #botonFiltro:focus, #botonFiltroOtros:focus {
+    outline: none;
+    border-color: violet;
+}
